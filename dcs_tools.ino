@@ -7,8 +7,8 @@
 TFT_eSPI tft = TFT_eSPI();    
 
 int stroke = 20;
-int savedLeverPosition = -1;
-boolean is_aoe_indexer_active = false;
+int savedIsAoeIndexerActive = -1;
+boolean is_aoe_indexer_active = true;
 
 String left_tank_fuel = "0";
 String right_tank_fuel = "0";
@@ -55,6 +55,13 @@ DcsBios::StringBuffer<5> ifeiBingoBuffer(0x7468, onIfeiBingoChange);
 DcsBios::StringBuffer<3> ifeiRpmRBuffer(0x74a2, onIfeiRpmRChange);
 DcsBios::StringBuffer<3> ifeiRpmLBuffer(0x749e, onIfeiRpmLChange);
 
+void onGearLeverChange(unsigned int newValue) {
+    // 0 is gear down 1 is up, so if is 0 the aoe_indexer must be active for landing
+    is_aoe_indexer_active = newValue == 0;  
+}
+
+DcsBios::IntegerBuffer gearLeverBuffer(0x747e, 0x1000, 12, onGearLeverChange);
+
 void setup() {
   DcsBios::setup();
   tft.init();
@@ -64,21 +71,18 @@ void setup() {
 
 void loop() {
   DcsBios::loop();
-  int leverPosition = digitalRead(10);
 
-  if(leverPosition == savedLeverPosition){
+  if(is_aoe_indexer_active == savedIsAoeIndexerActive){
     return;
   }
 
-  savedLeverPosition = leverPosition;
+  savedIsAoeIndexerActive = is_aoe_indexer_active;
 
-  if (leverPosition == HIGH){
-    is_aoe_indexer_active = true;
+  if (is_aoe_indexer_active){
     drawAOEIndexerPositions();
     return;
   }
 
-  is_aoe_indexer_active = false;
   drawFuelInformation();
   drawRpmInformation();
 }
