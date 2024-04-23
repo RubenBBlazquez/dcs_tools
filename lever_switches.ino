@@ -1,0 +1,1 @@
+DcsBios::Switch2Pos masterArmSw("MASTER_ARM_SW", 10);
