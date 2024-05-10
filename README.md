@@ -30,6 +30,7 @@ Right now the program only change between aoe_indexer and engine_information, if
 ![plot](./images/project_image.png)
 
 ## Dcs Plane Views, Kneebboard
+The program os this functionality is in `keyboard_scripts/communication_keyboard_mapping`
 ### First, install the necessary libraries:
 * to use this componente you will need to install the keyboard library , it can be found in the library searcher inside arduino ide.
 
