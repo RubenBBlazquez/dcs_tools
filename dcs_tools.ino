@@ -4,11 +4,14 @@
 #include <TFT_eSPI.h> 
 #include "dcs_callbacks_definition.h"
 
+#define RST_PIN 0
+
 TFT_eSPI tft = TFT_eSPI();    
 
 int stroke = 20;
 int savedIsAoeIndexerActive = -1;
 boolean is_aoe_indexer_active = true;
+int toggle_switch_pin = 10;
 
 String left_tank_fuel = "0";
 String right_tank_fuel = "0";
@@ -44,6 +47,7 @@ int v2_y2 = v2_y1;
 int v2_x_mid = 160;
 int v2_y_bottom = v2_y1 - V_HEIGHT; 
 
+
 DcsBios::IntegerBuffer aoaIndexerHighBuffer(0x7408, 0x0008, 3, onAoaIndexerHighChange);
 DcsBios::IntegerBuffer aoaIndexerLowBuffer(0x7408, 0x0020, 5, onAoaIndexerLowChange);
 DcsBios::IntegerBuffer aoaIndexerNormalBuffer(0x7408, 0x0010, 4, onAoaIndexerNormalChange);
@@ -66,12 +70,13 @@ void setup() {
   DcsBios::setup();
   tft.init();
   tft.setRotation(0);
-  pinMode(10, INPUT);
+  pinMode(toggle_switch_pin, INPUT);
+  Serial.begin(115200);
 }
 
 void loop() {
   DcsBios::loop();
-
+  
   if(is_aoe_indexer_active == savedIsAoeIndexerActive){
     return;
   }
