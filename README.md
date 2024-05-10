@@ -28,3 +28,20 @@ When you had all you sensors working and everything configured, i recommend this
 Right now the program only change between aoe_indexer and engine_information, if the landing gear is down, aoe_indexer will be active, otherwise, the engine information. 
 
 ![plot](./images/project_image.png)
+
+## Dcs Plane Views, Kneebboard
+### First, install the necessary libraries:
+* to use this componente you will need to install the keyboard library , it can be found in the library searcher inside arduino ide.
+
+### Second, Sensors:
+* **Arduino leonardo micro** , this program is based on that board, because it contains a chip to simulate a keyboard.
+ [Arduino Leonardo Micro Aliexpress]([https://es.aliexpress.com/w/wholesale-ESP8266.html?spm=a2g0o.cart.search.0](https://www.aliexpress.com/item/1005005967686665.html?spm=a2g0o.order_list.order_list_main.105.489a194d39Izsz))
+* **Lever Switch** , we will use this switches to change between plane Views mode, or use kneeboard to see the mission details.
+  [Lever switch Aliexpress]( https://es.aliexpress.com/item/4000598302546.html?spm=a2g0o.order_list.order_list_main.188.4c37194dBEiiyU&gatewayAdapt=glo2esp)
+* **Keyboard Matrix 4x3** , we will use this small keyboard to change between planeViews 1,2,3,4.... or to use the kneeboard
+  [Keyboard Matrix 4x3 Aliexpress]([https://es.aliexpress.com/item/4000598302546.html?spm=a2g0o.order_list.order_list_main.188.4c37194dBEiiyU&gatewayAdapt=glo2esp](https://www.aliexpress.com/item/1005006823463315.html?spm=a2g0o.order_list.order_list_main.93.489a194d39Izsz))
+
+### functionality done
+Right now the program only change between planeViews where you can use all buttons to change between the different views in dcs, and if you want to use the kneeboard you activate the second lever switch, and with the same keyboard matrix you will control the kneeboard if you use the `*` you will go backwards, `#` forwards , and with the `0` you will activate or deactivate the kneeboard
+
+![plot](./images/matrix_keyboard.jpg)
