@@ -4,13 +4,12 @@
 #include <TFT_eSPI.h> 
 #include "dcs_callbacks_definition.h"
 
-#define RST_PIN 0
-
 TFT_eSPI tft = TFT_eSPI();    
 
 int stroke = 20;
 int savedIsAoeIndexerActive = -1;
-boolean is_aoe_indexer_active = true;
+boolean is_aoe_indexer_active = false;
+boolean is_plane_in_the_air = false;
 int toggle_switch_pin = 10;
 
 String left_tank_fuel = "0";
@@ -59,30 +58,22 @@ DcsBios::StringBuffer<5> ifeiBingoBuffer(0x7468, onIfeiBingoChange);
 DcsBios::StringBuffer<3> ifeiRpmRBuffer(0x74a2, onIfeiRpmRChange);
 DcsBios::StringBuffer<3> ifeiRpmLBuffer(0x749e, onIfeiRpmLChange);
 
-void onGearLeverChange(unsigned int newValue) {
-    // 0 is gear down 1 is up, so if is 0 the aoe_indexer must be active for landing
-    is_aoe_indexer_active = newValue == 0;  
-}
-
-DcsBios::IntegerBuffer gearLeverBuffer(0x747e, 0x1000, 12, onGearLeverChange);
-
 void setup() {
   DcsBios::setup();
   tft.init();
   tft.setRotation(0);
   pinMode(toggle_switch_pin, INPUT);
-  Serial.begin(115200);
 }
 
 void loop() {
   DcsBios::loop();
-  
+  is_aoe_indexer_active = digitalRead(toggle_switch_pin) == HIGH;
+
   if(is_aoe_indexer_active == savedIsAoeIndexerActive){
     return;
   }
-
+  
   savedIsAoeIndexerActive = is_aoe_indexer_active;
-
   if (is_aoe_indexer_active){
     drawAOEIndexerPositions();
     return;

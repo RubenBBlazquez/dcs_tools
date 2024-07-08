@@ -93,6 +93,39 @@ void loop(){
   }
 
   if (middleToggleSwitch == HIGH) {
+    if (key == '1'){
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press(KEY_F2);
+      Keyboard.release(KEY_F2);
+      Keyboard.release(KEY_LEFT_SHIFT);
+    }
+
+    if (key == '2'){
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press(KEY_F10);
+      Keyboard.release(KEY_F10);
+      Keyboard.release(KEY_LEFT_SHIFT);
+    }
+
+     if (key == '3'){
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press(KEY_F6);
+      Keyboard.release(KEY_F6);
+      Keyboard.release(KEY_LEFT_SHIFT);
+    }
+
+    if (key == '4'){
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press(KEY_F9);
+      Keyboard.release(KEY_F9);
+      Keyboard.release(KEY_LEFT_SHIFT);
+    }
+
+    if (key == '4'){
+      Keyboard.press(KEY_F10);
+    }
+
+
     if (key == '*'){
       Keyboard.press('[');
       Keyboard.release('[');
@@ -130,9 +163,9 @@ void loop(){
 
   if (topToggleSwitch != savedTopTogglePosition) {
     Keyboard.press(KEY_RIGHT_SHIFT);
-    Keyboard.press('G');
-    Keyboard.release('G');
+    Keyboard.press('g');
     Keyboard.release(KEY_RIGHT_SHIFT);
+    Keyboard.release('g');
     savedTopTogglePosition = topToggleSwitch;
   }
 }
