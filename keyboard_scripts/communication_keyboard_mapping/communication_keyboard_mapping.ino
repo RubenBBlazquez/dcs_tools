@@ -115,15 +115,25 @@ void loop(){
     }
 
     if (key == '4'){
-      Keyboard.press(KEY_LEFT_SHIFT);
-      Keyboard.press(KEY_F9);
-      Keyboard.release(KEY_F9);
-      Keyboard.release(KEY_LEFT_SHIFT);
+      Keyboard.press(KEY_LEFT_ALT);
+      Keyboard.press(KEY_F10);
+      Keyboard.release(KEY_F10);
+      Keyboard.release(KEY_LEFT_ALT); 
     }
 
-    if (key == '4'){
-      Keyboard.press(KEY_F10);
-    }
+    if (key == '5'){
+      Keyboard.press(KEY_LEFT_ALT);
+      Keyboard.press(KEY_F11);
+      Keyboard.release(KEY_F11);
+      Keyboard.release(KEY_LEFT_ALT); 
+   }
+
+    if (key == '6'){
+      Keyboard.press(KEY_LEFT_ALT);
+      Keyboard.press(KEY_F12);
+      Keyboard.release(KEY_F12);
+      Keyboard.release(KEY_LEFT_ALT);  
+     }
 
 
     if (key == '*'){

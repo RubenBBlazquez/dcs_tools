@@ -4,6 +4,7 @@
 #include <TFT_eSPI.h> 
 #include "dcs_callbacks_definition.h"
 
+
 TFT_eSPI tft = TFT_eSPI();    
 
 int stroke = 20;
@@ -62,7 +63,7 @@ void setup() {
   DcsBios::setup();
   tft.init();
   tft.setRotation(0);
-  pinMode(toggle_switch_pin, INPUT);
+  pinMode(toggle_switch_pin, INPUT_PULLUP);
 }
 
 void loop() {

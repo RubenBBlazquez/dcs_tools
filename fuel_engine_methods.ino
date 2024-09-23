@@ -33,14 +33,14 @@ void drawFuelInformation(){
   tft.setTextColor(tft.color565(255, 255, 255)); // White text color
   tft.setFreeFont(&Calculator20pt7b);
   tft.setTextSize(1); // Text size
-  tft.print("L - " + left_tank_fuel);
+  tft.print("T - " + left_tank_fuel);
 
   tft.fillRoundRect(26, 125, tft.width()-50, 60, 8, black);
   tft.setCursor(45, 165); // Position the cursor inside the rectangle with padding
   tft.setTextColor(tft.color565(255, 255, 255)); // White text color
   tft.setFreeFont(&Calculator20pt7b);
   tft.setTextSize(1); // Text size
-  tft.print("R - " + right_tank_fuel);
+  tft.print("I - " + right_tank_fuel);
 
   tft.fillRoundRect(87, 200, tft.width()-170, 50, 8, black);
   tft.setCursor(135, 235); // Position the cursor inside the rectangle with padding
@@ -67,7 +67,7 @@ void updateRightTankFuel(String newRightFuel){
   tft.setTextColor(tft.color565(255, 255, 255)); // White text color
   tft.setFreeFont(&Calculator20pt7b);
   tft.setTextSize(1); // Text size
-  tft.print("R - " + newRightFuel);
+  tft.print("I - " + newRightFuel);
   right_tank_fuel = newRightFuel;
 }
 
@@ -81,7 +81,7 @@ void updateLeftTankFuel(String newLeftFuel){
   tft.setTextColor(tft.color565(255, 255, 255)); // White text color
   tft.setFreeFont(&Calculator20pt7b);
   tft.setTextSize(1); // Text size
-  tft.print("L - " + newLeftFuel);
+  tft.print("T - " + newLeftFuel);
 
   left_tank_fuel = newLeftFuel;
 }
@@ -117,14 +117,14 @@ void drawRpmInformation(){
   tft.setTextColor(tft.color565(255, 255, 255)); // White text color
   tft.setFreeFont(&Calculator20pt7b);
   tft.setTextSize(1); // Text size
-  tft.print(rightRpm);
+  tft.print(leftRpm);
 
   tft.fillRoundRect(165, 408, tft.width()-190, 55, 8, black);
   tft.setCursor(180, 450); // Position the cursor inside the rectangle with padding
   tft.setTextColor(tft.color565(255, 255, 255)); // White text color
   tft.setFreeFont(&Calculator20pt7b);
   tft.setTextSize(1); // Text size
-  tft.print(leftRpm);
+  tft.print(rightRpm);
 }
 
 void updateLeftRpm(String newLeftRpm){
@@ -169,9 +169,9 @@ void onIfeiBingoChange(char* newValue) {
 }
 
 void onIfeiRpmLChange(char* newValue) {
-    updateLeftRpm(newValue);
+   updateRightRpm(newValue);
 }
 
 void onIfeiRpmRChange(char* newValue) {
-    updateRightRpm(newValue);
+    updateLeftRpm(newValue);
 }
