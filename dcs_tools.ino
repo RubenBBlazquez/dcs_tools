@@ -1,6 +1,5 @@
 #define DCSBIOS_DEFAULT_SERIAL
 #include <DcsBios.h>
-#include <SPI.h>
 #include <TFT_eSPI.h> 
 #include "dcs_callbacks_definition.h"
 
@@ -61,25 +60,14 @@ DcsBios::StringBuffer<3> ifeiRpmLBuffer(0x749e, onIfeiRpmLChange);
 
 void setup() {
   DcsBios::setup();
+  Serial.begin(9600);
   tft.init();
   tft.setRotation(0);
+  drawFuelInformation();
+  drawRpmInformation();
   pinMode(toggle_switch_pin, INPUT_PULLUP);
 }
 
 void loop() {
   DcsBios::loop();
-  is_aoe_indexer_active = digitalRead(toggle_switch_pin) == HIGH;
-
-  if(is_aoe_indexer_active == savedIsAoeIndexerActive){
-    return;
-  }
-  
-  savedIsAoeIndexerActive = is_aoe_indexer_active;
-  if (is_aoe_indexer_active){
-    drawAOEIndexerPositions();
-    return;
-  }
-
-  drawFuelInformation();
-  drawRpmInformation();
 }
