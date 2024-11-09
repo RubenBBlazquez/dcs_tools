@@ -82,6 +82,7 @@ DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", LT_TEST, true);
 
 void setup() {
   DcsBios::setup();
+  Serial.begin(9600);
   pinMode(CHART, INPUT);
   pinMode(TEMP, INPUT);
   pinMode(WARN, INPUT);
@@ -216,8 +217,7 @@ void loop() {
     Serial.print(" - ");
     Serial.println(digitalRead(BLEED_AIR_OFF));
     */
-      /*
-      Serial.print(" - ");
+     /* Serial.print(" - ");
     Serial.print(digitalRead(CANOPY_DOWN)); 
     Serial.print(" - ");
     Serial.println(digitalRead(CANOPY_UP));
