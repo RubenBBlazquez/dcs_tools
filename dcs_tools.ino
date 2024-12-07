@@ -1,7 +1,13 @@
 #define DCSBIOS_DEFAULT_SERIAL
+#define DCSBIOS_DISABLE_SERVO
 #include <DcsBios.h>
 #include <TFT_eSPI.h> 
 #include "dcs_callbacks_definition.h"
+#define  MODE_BUTTON_PIN  32
+#define  QTY_BUTTON_PIN  33
+#define  UP_ARROW_BUTTON_PIN 27
+#define  DOWN_ARROW_BUTTON_PIN  26
+#define  ET_BUTTON_PIN  25
 
 
 TFT_eSPI tft = TFT_eSPI();    
@@ -10,7 +16,6 @@ int stroke = 20;
 int savedIsAoeIndexerActive = -1;
 boolean is_aoe_indexer_active = false;
 boolean is_plane_in_the_air = false;
-int toggle_switch_pin = 10;
 
 String left_tank_fuel = "0";
 String right_tank_fuel = "0";
@@ -65,7 +70,12 @@ void setup() {
   tft.setRotation(0);
   drawFuelInformation();
   drawRpmInformation();
-  pinMode(toggle_switch_pin, INPUT_PULLUP);
+  pinMode(MODE_BUTTON_PIN, INPUT_PULLUP);
+  pinMode(QTY_BUTTON_PIN, INPUT_PULLUP);
+  pinMode(UP_ARROW_BUTTON_PIN, INPUT_PULLUP);
+  pinMode(DOWN_ARROW_BUTTON_PIN, INPUT_PULLUP);
+  pinMode(ET_BUTTON_PIN, INPUT_PULLUP);
+
 }
 
 void loop() {

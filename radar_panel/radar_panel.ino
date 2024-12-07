@@ -14,7 +14,6 @@ const byte colorDepth = 8; // Increasing this beyond 8 may cause graphic image i
 #define DCSBIOS_DEFAULT_SERIAL
 #define DCSBIOS_DISABLE_SERVO
 
-// Chip Select pins, CS pins are active low
 #define hydPressDisplay 21
 #define airSpeedDisplay 22
 #define vsiDisplay 5
