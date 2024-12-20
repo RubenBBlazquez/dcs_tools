@@ -13,7 +13,7 @@ if (-not (Test-Admin)) {
 }
 
 # Define the list of COM ports
-$comPorts = @(26,18, 10, 46, 47, 27)
+$comPorts = @(50,18, 10, 46, 47, 51)
 
 # Loop through each script and corresponding COM port
 for ($i = 0; $i -lt 6; $i++) {
