@@ -13,10 +13,10 @@ if (-not (Test-Admin)) {
 }
 
 # Define the list of COM ports
-$comPorts = @(50,18, 10, 46, 47, 51)
+$comPorts = @(12,11, 10, 13,  22, 6, 49)
 
 # Loop through each script and corresponding COM port
-for ($i = 0; $i -lt 6; $i++) {
+for ($i = 0; $i -lt 7; $i++) {
     $cmdScript = "C:\Users\rbblazquez\Desktop\dcs-bios-master\Programs\connect-serial-port.cmd"
     $comPort = $comPorts[$i]
     

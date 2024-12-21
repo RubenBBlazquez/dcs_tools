@@ -47,6 +47,8 @@
 #define CANOPY_UP 35
 #define CANOPY_DOWN 33
 
+#define SAFE_ARM_SEAT 49
+
 const byte radarSwPins[4] = {RADAR_STATE_OFF, RADAR_STATE_STBY, RADAR_STATE_OPR, RADAR_STATE_PULL_EMERG};
 DcsBios::SwitchMultiPos radarSw("RADAR_SW", radarSwPins, 4);
 
@@ -79,6 +81,7 @@ DcsBios::Switch2Pos pitotHeatSw("PITOT_HEAT_SW", ANTI_ICE_PITOT);
 DcsBios::RotaryEncoder engAntiiceSw("ENG_ANTIICE_SW", "DEC", "INC", ANTI_ICE_ENG_1, ANTI_ICE_ENG_2);
 DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", LT_TEST, true);
 
+DcsBios::ActionButton ejectionSeatArmedToggle("EJECTION_SEAT_ARMED", "TOGGLE", SAFE_ARM_SEAT);
 
 void setup() {
   DcsBios::setup();
@@ -128,6 +131,8 @@ void setup() {
   
   pinMode(CANOPY_UP, INPUT_PULLUP);
   pinMode(CANOPY_DOWN, INPUT_PULLUP);
+
+  pinMode(SAFE_ARM_SEAT, INPUT_PULLUP);
 }
 
 
@@ -222,4 +227,6 @@ void loop() {
     Serial.print(" - ");
     Serial.println(digitalRead(CANOPY_UP));
   */
+  //Serial.println(digitalRead(SAFE_ARM_SEAT));
+
   }
