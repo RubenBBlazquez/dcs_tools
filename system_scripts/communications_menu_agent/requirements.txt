@@ -1,0 +1,5 @@
+mss==10.0.0
+pillow==9.5.0
+keyboard==0.13.5
+whisper==1.1.10
+attrs==25.3.0
