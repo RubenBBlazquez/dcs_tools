@@ -1,0 +1,11 @@
+{
+    "monitor_index": 1,
+    "last_capture_coordinates": {
+        "x1": -375,
+        "y1": 4,
+        "x2": -4,
+        "y2": 439
+    },
+    "start_menu_discovery_hot_key": "a",
+    "voice_recorder_hot_key": "a"
+}

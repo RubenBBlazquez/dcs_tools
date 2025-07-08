@@ -1,0 +1,72 @@
+DEFAULT_EN_MENU = {
+  "Ground_Crew": {
+    "F1": {
+      "label": "Rearm & Refuel",
+      "have_sub_menu": False
+    },
+    "F2": {
+      "label": "Ground Electric Power...",
+      "have_sub_menu": True,
+      "submenu": {
+        "F1": "On",
+        "F2": "Off"
+      }
+    },
+
+    "F3": {
+      "label": "Request Repair",
+      "have_sub_menu": False,
+      "submenu": {}
+    },
+    "F4": {
+      "label": "Wheel chocks...",
+      "have_sub_menu": True,
+      "submenu": {
+        "F1": "Place",
+        "F2": "Remove"
+      }
+    },
+    "F5": {
+      "label": "Ground Air Supply...",
+      "have_sub_menu": True,
+      "submenu": {
+        "F1": "Connect",
+        "F2": "Disconnect",
+        "F3": "Apply"
+      }
+    },
+    "F6": {
+      "label": "Salute!",
+      "have_sub_menu": False
+    },
+    "F7": {
+      "label": "Request Launch...",
+      "have_sub_menu": True,
+      "submenu": {}
+    },
+    "F8": {
+      "label": "Change helmet-mounted device...",
+      "have_sub_menu": True,
+      "submenu": {
+        "F1": "Setup JHMCS",
+        "F2": "Setup NVG"
+      }
+    },
+    "F9": {
+      "label": "DTC Interface...",
+      "have_sub_menu": True,
+      "submenu": {
+        "F1": "Show",
+        "F2": "Hide"
+      }
+    },
+    "F11": {
+      "label": "Previous Menu",
+      "have_sub_menu": False
+    },
+    "F12": {
+      "label": "Exit",
+      "have_sub_menu": False
+    }
+  }
+}

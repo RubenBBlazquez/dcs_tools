@@ -1,7 +1,6 @@
 import json
 import os
 import attr
-from typing import Dict
 
 SETTINGS_FILE = "config/settings.json"
 
@@ -16,7 +15,7 @@ class Settings:
     monitor_index : int
         Index of your monitor in your OS
     last_capture_coordinates : dict[str, int]
-        Coordinates of the menu in DCS to take the screenshots
+        Coordinates of the menu in DCS to take the screenshotspp
     start_menu_discovery_hot_key : str
         Hotkey to activate menu discovery
     voice_recorder_hot_key : str
@@ -24,7 +23,7 @@ class Settings:
 
     """
     monitor_index: int = 0
-    last_capture_coordinates: Dict[str, int] = attr.Factory(dict)
+    last_capture_coordinates: dict[str, int] = attr.Factory(dict)
     start_menu_discovery_hot_key: str = ""
     voice_recorder_hot_key: str = ""
 

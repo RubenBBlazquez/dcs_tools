@@ -1,0 +1,10 @@
+langchain==0.3.26
+langchain-community==0.3.27
+fastapi==0.108.0
+uvicorn==0.35.0
+python-dotenv==0.21.1
+python-multipart==0.0.20
+numpy==2.2.6
+pandas==2.3.1
+openai==1.93.2
+google-cloud-vision==3.10.2

@@ -1,19 +1,23 @@
+import base64
+import io
+import os
+import time
 import tkinter as tk
 from tkinter import ttk, messagebox
-import mss
 import keyboard
 import threading
 import socket
-
-from system_scripts.communications_menu_agent.ui.config.settings_management import Settings
-from system_scripts.communications_menu_agent.ui.components.hotkey_selector import HotkeySelector
-from system_scripts.communications_menu_agent.ui.components.monitor_dropdown import MonitorDropdown
-from system_scripts.communications_menu_agent.ui.components.screen_capture_tool import ScreenCaptureTool
+from ui.components.json_menu_composer import DCSMenuParser
+from ui.config.settings_management import Settings
+from ui.components.hotkey_selector import HotkeySelector
+from ui.components.monitor_dropdown import MonitorDropdown
+from ui.components.screen_capture_tool import ScreenCaptureTool
 
 
 class DcsCommunicationsConfigView:
     def __init__(self):
         self.settings = Settings.create_settings_from_file()
+        self.dcs_menu_parser = DCSMenuParser(self.settings)
         self.root = tk.Tk()
         self.root.title("Communications Menu Agent Configuration")
         self.root.geometry("435x330")
@@ -100,20 +104,11 @@ class DcsCommunicationsConfigView:
         ttk.Button(self.modal, text="Cancel Listening", command=self.stop_listening).pack(pady=10)
         self.modal.protocol("WM_DELETE_WINDOW", self.stop_listening)
 
-        def do_capture():
-            print("Hotkey pressed. Capturing...")
-            with mss.mss() as sct:
-                monitor = {
-                    "left": coords["x1"],
-                    "top": coords["y1"],
-                    "width": coords["x2"] - coords["x1"],
-                    "height": coords["y2"] - coords["y1"]
-                }
-                img = sct.grab(monitor)
-                print("Screenshot saved from hotkey.")
-
         try:
-            self.hotkey_ref = keyboard.add_hotkey(self.settings.start_menu_discovery_hot_key, do_capture)
+            self.hotkey_ref = keyboard.add_hotkey(
+                self.settings.start_menu_discovery_hot_key,
+                self.dcs_menu_parser.iterate_and_parse_dcs_menu
+            )
         except Exception as e:
             messagebox.showerror("Hotkey Error", f"Failed to register hotkey: {e}")
             self.modal.destroy()

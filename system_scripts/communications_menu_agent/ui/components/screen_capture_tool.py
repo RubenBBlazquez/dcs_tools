@@ -1,7 +1,7 @@
 import mss
 import tkinter as tk
 
-from system_scripts.communications_menu_agent.ui.config.settings_management import Settings
+from ui.config.settings_management import Settings
 
 
 class ScreenCaptureTool:
@@ -75,5 +75,5 @@ class ScreenCaptureTool:
             "y1": y1,
             "x2": x2,
             "y2": y2
-        },
+        }
         print(f"Coordinates saved: ({x1}, {y1}, {x2}, {y2})")
