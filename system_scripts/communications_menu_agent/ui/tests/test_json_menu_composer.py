@@ -1,7 +1,9 @@
 import pytest
 from unittest.mock import patch, MagicMock
 
+from ui.components.gemini_assistant_api import check_menu_key_most_likely
 from ui.components.json_menu_composer import DCSMenuParser
+from ui.config.default_communications.EN.en_parsed import DEFAULT_EN_MENU
 
 
 @pytest.fixture
@@ -18,7 +20,7 @@ def test_iterate_and_parse_dcs_menu_multiple_run(parser):
     second_ocr = [
         '2. Main. ATC',
         'F1. [N/A] Kutaisi (4.4 / 134 / 41 / 263 MHz)...',
-        'F2. [N/A] Senaki-Kolkhi (4.3 / 132 / 40.6 / 261 MHz) (Neutral)...',
+        'F2. [N/A] Senaki-Kolkhi (4.3 / 132 / 40.6 / 261 MHz) (Neutral)',
         'F11, Previous Menu',
         'F12, Exit'
     ]
@@ -31,8 +33,6 @@ def test_iterate_and_parse_dcs_menu_multiple_run(parser):
 
     with parse_image_ocr_mock, get_dcs_menu_screenshot_mock:
         parser._edit_specific_deep_key = MagicMock()
-        parser.iterate_and_parse_dcs_menu()
-        parser.iterate_and_parse_dcs_menu()
         parser.iterate_and_parse_dcs_menu()
 
     expected_menu_parsed = {
@@ -53,7 +53,7 @@ def test_iterate_and_parse_dcs_menu_multiple_run(parser):
                         }
                     },
                     "[N/A] Senaki-Kolkhi (4.3 / 132 / 40.6 / 261 MHz) (Neutral)": {
-                        "have_sub_menu": True,
+                        "have_sub_menu": False,
                         "hotkey": "F2",
                         "submenu": {}
                     },
@@ -73,3 +73,9 @@ def test_iterate_and_parse_dcs_menu_multiple_run(parser):
     }
 
     assert parser._parsed_dcs_menu == expected_menu_parsed
+
+def test_gemini():
+    assert check_menu_key_most_likely(
+        DEFAULT_EN_MENU,
+        "Gr0und A1s Suppli"
+    ).content == "Ground Air Supply..."

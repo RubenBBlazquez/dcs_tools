@@ -1,7 +1,3 @@
-import base64
-import io
-import os
-import time
 import tkinter as tk
 from tkinter import ttk, messagebox
 import keyboard
@@ -107,7 +103,7 @@ class DcsCommunicationsConfigView:
         try:
             self.hotkey_ref = keyboard.add_hotkey(
                 self.settings.start_menu_discovery_hot_key,
-                self.dcs_menu_parser.iterate_and_parse_dcs_menu
+                self.dcs_menu_parser.discovery_scan_dcs_menu_json
             )
         except Exception as e:
             messagebox.showerror("Hotkey Error", f"Failed to register hotkey: {e}")

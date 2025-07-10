@@ -1,5 +1,5 @@
 {
-  "Ground_Crew": {
+  "groundcrew": {
     "F1": {
       "label": "Rearm & Refuel",
       "have_sub_menu": false

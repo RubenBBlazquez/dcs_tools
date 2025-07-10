@@ -1,14 +1,18 @@
 import io
-import math
 import os
+import re
 from typing import Any
 
+import keyboard
 import mss
 import attr
 from PIL import Image
 from google.cloud import vision
 from google.oauth2 import service_account
+from pywinauto import Desktop
+import time
 
+from ui.components.gemini_assistant_api import check_menu_key_most_likely
 from ui.config.default_communications.EN.en_parsed import DEFAULT_EN_MENU
 from ui.config.settings_management import Settings
 
@@ -31,10 +35,10 @@ class DCSMenuParser:
     _parsed_dcs_menu: dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def __attrs_post_init__(self):
-        pass
-        # key_path = os.path.join(os.path.dirname(__file__), "..", "config", "cloud_vision_service_account.json")
-        # creds = service_account.Credentials.from_service_account_file(key_path)
-        # self._vision_client = vision.ImageAnnotatorClient(credentials=creds)
+        key_path = os.path.join(os.path.dirname(__file__), "..", "config", "cloud_vision_service_account.json")
+        creds = service_account.Credentials.from_service_account_file(key_path)
+        self._vision_client = vision.ImageAnnotatorClient(credentials=creds)
+        self._parsed_dcs_menu.setdefault("menu", {})
 
     def _get_dcs_menu_screenshot(self) -> bytes:
         coords = self._settings.last_capture_coordinates
@@ -46,6 +50,7 @@ class DCSMenuParser:
         }
 
         with mss.mss() as sct:
+            time.sleep(0.3)
             sct_img = sct.grab(screen_rectangle)
 
         img = Image.frombytes("RGB", sct_img.size, sct_img.rgb)
@@ -55,48 +60,130 @@ class DCSMenuParser:
 
         return img_bytes.read()
 
-    def _parse_image_with_ocr(self, image_bytes: bytes) -> list[str]:
-        image = vision.Image(content=self._get_dcs_menu_screenshot())
+    def _parse_image_with_ocr(self, image_bytes: bytes) -> tuple[list[str], list[str]]:
+        """
+        Parses an image using OCR (Optical Character Recognition) to extract text.
+
+        The function leverages a vision client to process the provided image bytes
+        for text detection. It splits detected text into a menu's title items and
+        options.
+
+        :param image_bytes: The image data in bytes format to be processed.
+        :type image_bytes: bytes
+        :return: A tuple containing a list of menu title items and a list of menu
+            options extracted from the image text.
+        :rtype: tuple[list[str], list[str]]
+        :raises Exception: If an error occurs during the OCR process, with details
+            from the response error message.
+        """
+        image = vision.Image(content=image_bytes)
         response = self._vision_client.text_detection(image=image)
 
         if response.error.message:
             raise Exception(response.error.message)
 
-        return response.text_annotations[0].description.split("\n")[1:]
+        text_obtained = response.text_annotations[0].description
+
+        menu_items_with_hotkeys = []
+        menu_options = re.findall(r'(F[\w.,-]+\s.*?)(?=\nF[\w.,-]+\s|\Z)', text_obtained, re.DOTALL)
+
+        for option in menu_options:
+            try:
+                split_option = option.split('. ')
+                hotkey, menu_item = (
+                    split_option[0].strip(),
+                    split_option[1]
+                    .replace(' ', '')
+                    .replace("\n", "")
+                    .replace("%", "")
+                    .replace("/", "")
+                    .lower()
+                )
+            except Exception as e:
+                split_element = option.split(' ')
+                menu_item = (
+                    ' '.join(split_element[1:])
+                    .replace(' ', '')
+                    .replace(' ', '')
+                    .replace("\n", "")
+                    .replace("%", "")
+                    .replace("/", "")
+                    .lower()
+                )
+                hotkey = split_element[0]
+
+            hotkey.replace("i", "1").replace("L", "1")
+            menu_items_with_hotkeys.append((hotkey, menu_item))
+
+        menu_title_items = (
+            re.split(
+                r'^F[\w.,-]+\s',
+                response.text_annotations[0].description,
+                maxsplit=1,
+                flags=re.MULTILINE
+            )[0]
+            .replace("\n", "")
+            .replace("AUTO", "")
+            .replace("/", "")
+            .replace("\\", "")
+            .split('. ')
+        )
+        menu_title_items = [
+            menu_title.replace(' ','').lower()
+            for menu_title in menu_title_items
+        ]
+
+        return menu_title_items, menu_items_with_hotkeys
 
     def _edit_specific_deep_key_submenu_in_parsed_dcs_menu(self, keys: list[str], value: dict[str, Any]):
         element_to_edit = self._parsed_dcs_menu["menu"]
 
         for index in range(len(keys)):
-            key = keys[index].strip()
+            key = keys[index]
 
             try:
                 element_to_edit = element_to_edit[key]
-            except Exception:
-                element_to_edit = element_to_edit["submenu"][key]
+            except KeyError:
+                try:
+                    element_to_edit = element_to_edit["submenu"][key]
+                except KeyError:
+                    correct_key = check_menu_key_most_likely(
+                        element_to_edit["submenu"],
+                        key,
+                        "label"
+                    )
+                    element_to_edit = element_to_edit["submenu"][correct_key]
 
             if index == len(keys) - 1:
                 element_to_edit["submenu"].update(value)
 
+    def _focus_dcs_screen(self):
+        for w in Desktop(backend="uia").windows():
+            if "digital combat simulator" in w.window_text().lower().strip():
+                print(f"Found: {w.window_text()}")
+                w.set_focus()
+
+    def discovery_scan_dcs_menu_json(self):
+        self.iterate_and_parse_dcs_menu()
+        breakpoint()
+
     def iterate_and_parse_dcs_menu(self):
         dcs_screenshot = self._get_dcs_menu_screenshot()
-        parsed_menu_items = self._parse_image_with_ocr(dcs_screenshot)
-        menu_title_items = parsed_menu_items.pop(0)
-        split_menu_title = menu_title_items.split('. ')
-        is_submenu = len(split_menu_title) > 1 and split_menu_title[0].isnumeric()
+        menu_title_items, parsed_menu_items = self._parse_image_with_ocr(dcs_screenshot)
+        is_submenu = len(menu_title_items) > 1 and menu_title_items[0].isnumeric()
         hotkeys_elements_with_submenu = []
 
-        for element in parsed_menu_items:
-            have_sub_menu = '...' in element
-            element = element.replace('...', '').replace(',', '.')
-            split_element = element.split('. ')
-            hotkey, menu_item = split_element
-            is_element_submenu_in_default_configs = element in DEFAULT_EN_MENU
+        for hotkey, menu_item in parsed_menu_items:
+            have_sub_menu = '...' in menu_item
+            menu_item = menu_item.replace('...', '')
+
+            is_element_submenu_in_default_configs = menu_item in DEFAULT_EN_MENU
+            print(f"Menu Item: {menu_item}, Hotkey: {hotkey}, Submenu: {have_sub_menu}")
 
             menu_item_dict = {
                 menu_item: {
                     'have_sub_menu': have_sub_menu,
-                    'hotkey': hotkey.strip(),
+                    'hotkey': hotkey,
                     'submenu': (
                         DEFAULT_EN_MENU[menu_item]
                         if is_element_submenu_in_default_configs
@@ -109,12 +196,23 @@ class DCSMenuParser:
                 hotkeys_elements_with_submenu.append(hotkey.strip())
 
             if not is_submenu:
-                self._parsed_dcs_menu.setdefault("menu", {}).update(menu_item_dict)
+                self._parsed_dcs_menu["menu"].update(menu_item_dict)
                 continue
 
             # Each Menu has at the start [Number. Main. Submenu. SubMenu]
             # we take only the submenus keys
-            menu_title_items = split_menu_title[2:]
-            self._edit_specific_deep_key_submenu_in_parsed_dcs_menu(menu_title_items, menu_item_dict)
+            menu_title_keys = menu_title_items[2:]
+            self._edit_specific_deep_key_submenu_in_parsed_dcs_menu(menu_title_keys, menu_item_dict)
 
+        self._focus_dcs_screen()
+        time.sleep(0.2)
 
+        for hotkey in hotkeys_elements_with_submenu:
+            keyboard.send(hotkey)
+            time.sleep(0.2)
+            print(f"hotkey pressed {hotkey}")
+            self.iterate_and_parse_dcs_menu()
+
+        keyboard.send("F11")
+        print("------------------")
+        print("pressed F11")
