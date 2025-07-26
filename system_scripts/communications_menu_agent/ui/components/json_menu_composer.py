@@ -12,7 +12,7 @@ from google.oauth2 import service_account
 from pywinauto import Desktop
 import time
 
-from ui.components.gemini_assistant_api import check_menu_key_most_likely
+from ui.components.gemini_assistant_actions import check_menu_item_most_likely, MenuItem
 from ui.config.default_communications.EN.en_parsed import DEFAULT_EN_MENU
 from ui.config.settings_management import Settings
 
@@ -41,6 +41,16 @@ class DCSMenuParser:
         self._parsed_dcs_menu.setdefault("menu", {})
 
     def _get_dcs_menu_screenshot(self) -> bytes:
+        """
+        Capture a screenshot of a specific region of the screen and return it as a PNG image in bytes.
+
+        This method captures a screenshot based on previously defined coordinates, converts the
+        captured image into a PNG format, and returns the binary content of the image. The captured
+        region corresponds to a rectangular area defined in the saved settings.
+
+        :return: PNG representation of the captured screenshot as bytes
+        :rtype: bytes
+        """
         coords = self._settings.last_capture_coordinates
         screen_rectangle = {
             "left": coords["x1"],
@@ -147,10 +157,10 @@ class DCSMenuParser:
                 try:
                     element_to_edit = element_to_edit["submenu"][key]
                 except KeyError:
-                    correct_key = check_menu_key_most_likely(
+                    correct_key = check_menu_item_most_likely(
                         element_to_edit["submenu"],
                         key,
-                        "label"
+                        MenuItem.LABEL
                     )
                     element_to_edit = element_to_edit["submenu"][correct_key]
 
@@ -214,5 +224,3 @@ class DCSMenuParser:
             self.iterate_and_parse_dcs_menu()
 
         keyboard.send("F11")
-        print("------------------")
-        print("pressed F11")

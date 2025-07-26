@@ -1,9 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-
-from ui.components.gemini_assistant_api import check_menu_key_most_likely
 from ui.components.json_menu_composer import DCSMenuParser
-from ui.config.default_communications.EN.en_parsed import DEFAULT_EN_MENU
 
 
 @pytest.fixture
@@ -73,9 +70,3 @@ def test_iterate_and_parse_dcs_menu_multiple_run(parser):
     }
 
     assert parser._parsed_dcs_menu == expected_menu_parsed
-
-def test_gemini():
-    assert check_menu_key_most_likely(
-        DEFAULT_EN_MENU,
-        "Gr0und A1s Suppli"
-    ).content == "Ground Air Supply..."

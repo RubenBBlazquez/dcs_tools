@@ -4,6 +4,7 @@ keyboard==0.13.5
 whisper==1.1.10
 attrs==25.3.0
 pytest==8.4.1
+pytest-vcr==1.0.2
 pygetwindow==0.0.9
 pywinauto==0.6.9
 langchain-google-genai==2.1.7

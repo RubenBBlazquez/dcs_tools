@@ -2,7 +2,7 @@ import json
 import os
 import attr
 
-SETTINGS_FILE = "config/settings.json"
+SETTINGS_FILE = os.path.join(os.path.dirname(__file__), "settings.json")
 
 
 @attr.s(auto_attribs=True)

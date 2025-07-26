@@ -1,3 +1,4 @@
 *.env
 *.venv
 *cloud_vision_service_account.json
+*settings.json
