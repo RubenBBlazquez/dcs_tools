@@ -173,9 +173,11 @@ class DCSMenuParser:
                 print(f"Found: {w.window_text()}")
                 w.set_focus()
 
+    def _save_scanned_dcs_menu(self):
+        pass
+
     def discovery_scan_dcs_menu_json(self):
         self.iterate_and_parse_dcs_menu()
-        breakpoint()
 
     def iterate_and_parse_dcs_menu(self):
         dcs_screenshot = self._get_dcs_menu_screenshot()
