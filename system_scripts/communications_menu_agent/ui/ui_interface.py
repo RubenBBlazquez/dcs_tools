@@ -1,19 +1,29 @@
+import json
 import tkinter as tk
+from json import JSONDecodeError
 from tkinter import ttk, messagebox
+from typing import Optional
+
 import keyboard
 import threading
 import socket
+
+from ui.components.dcs_menu_parser.callbacks import on_finish_dcs_menu_parser
 from ui.components.json_menu_composer import DCSMenuParser
 from ui.config.settings_management import Settings
 from ui.components.hotkey_selector import HotkeySelector
 from ui.components.monitor_dropdown import MonitorDropdown
 from ui.components.screen_capture_tool import ScreenCaptureTool
 
+TERRAIN_UDP_KEY = "terrain"
 
 class DcsCommunicationsConfigView:
     def __init__(self):
         self.settings = Settings.create_settings_from_file()
-        self.dcs_menu_parser = DCSMenuParser(self.settings)
+        self.dcs_menu_parser = DCSMenuParser(
+            self.settings,
+            on_finish_dcs_menu_parser
+        )
         self.root = tk.Tk()
         self.root.title("Communications Menu Agent Configuration")
         self.root.geometry("435x330")
@@ -60,6 +70,21 @@ class DcsCommunicationsConfigView:
         if self.modal:
             self.modal.destroy()
             self.modal = None
+
+    @staticmethod
+    def _get_parsed_udp_json(udp_message: str) -> Optional[dict]:
+        try:
+            return json.loads(udp_message)
+        except JSONDecodeError:
+            return None
+
+    def _set_dcs_mission_terrain(self, udp_msg: str):
+        udp_data = self._get_parsed_udp_json(udp_msg)
+
+        if not udp_data and TERRAIN_UDP_KEY not in udp_data:
+            return
+
+        self.dcs_menu_parser._terrain = udp_data[TERRAIN_UDP_KEY]
 
     def listen_udp_loop(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

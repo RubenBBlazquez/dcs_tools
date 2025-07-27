@@ -1,6 +1,10 @@
+import json
+import os
+from unittest import mock
+
 import pytest
 from unittest.mock import patch, MagicMock
-from ui.components.json_menu_composer import DCSMenuParser
+from ui.components.json_menu_composer import DCSMenuParser, TerrainNotDefinedError
 
 
 @pytest.fixture
@@ -70,3 +74,32 @@ def test_iterate_and_parse_dcs_menu_multiple_run(parser):
     }
 
     assert parser._parsed_dcs_menu == expected_menu_parsed
+
+@mock.patch('ui.components.json_menu_composer.time.sleep', return_value=None)
+def test_save_parsed_menus_dcs_error(_, parser):
+    current_test_path = os.path.join(
+        os.path.dirname(__file__), "test_config", "parsed_menus_dcs.json"
+    )
+
+    with mock.patch("ui.components.json_menu_composer.os.path.join") as os_path_mock:
+        os_path_mock.return_value = current_test_path
+
+        with (pytest.raises(TerrainNotDefinedError)):
+            parser._save_parsed_menu()
+
+@mock.patch('ui.components.json_menu_composer.time.sleep', return_value=None)
+def test_save_parsed_menus_dcs(_, parser):
+    current_test_path = os.path.join(
+        os.path.dirname(__file__), "test_config", "parsed_menus_dcs.json"
+    )
+
+    with mock.patch("ui.components.json_menu_composer.os.path.join") as os_path_mock:
+        os_path_mock.return_value = current_test_path
+        parsed_menu_dcs = {"test": [1,2,3,4], "test2": 12}
+        terrain = "Caucasus"
+        parser._parsed_dcs_menu = parsed_menu_dcs
+        parser._terrain = terrain
+        parser._save_parsed_menu()
+
+    created_file = json.load(open(current_test_path, 'r'))
+    assert created_file == {"Caucasus": parsed_menu_dcs}

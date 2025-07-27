@@ -1,6 +1,8 @@
 import io
+import json
 import os
 import re
+from json import JSONDecodeError
 from typing import Any
 
 import keyboard
@@ -11,11 +13,17 @@ from google.cloud import vision
 from google.oauth2 import service_account
 from pywinauto import Desktop
 import time
-
 from ui.components.gemini_assistant_actions import check_menu_item_most_likely, MenuItem
 from ui.config.default_communications.EN.en_parsed import DEFAULT_EN_MENU
 from ui.config.settings_management import Settings
 
+# When a dcs mission starts, can happens that we dont have already
+# the terrain, so, until we have it, is Unknown
+DEFAULT_TERRAIN = "UNKNOWN"
+
+class TerrainNotDefinedError(Exception):
+    def __init__(self):
+        self.msg = "Terrain Not Found, Check if you set the files correctly inside DCS Game Folder"
 
 @attr.s(auto_attribs=True)
 class DCSMenuParser:
@@ -26,16 +34,18 @@ class DCSMenuParser:
 
     Attributes
     ----------
-    _settings: Settings
+    settings: Settings
         Object with all configurations of the ui app
+    terrain: str
+        Terrain of the dcs mision we are currently on
     """
     _settings: Settings
-    _menu_json: dict[str, Any] = attr.ib(init=False, factory=dict)
+    _terrain: str = attr.ib(default=DEFAULT_TERRAIN)
     _vision_client: vision.ImageAnnotatorClient = attr.ib(init=False)
     _parsed_dcs_menu: dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def __attrs_post_init__(self):
-        key_path = os.path.join(os.path.dirname(__file__), "..", "config", "cloud_vision_service_account.json")
+        key_path = os.path.join(os.path.dirname(__file__), "..", "test_config", "cloud_vision_service_account.json")
         creds = service_account.Credentials.from_service_account_file(key_path)
         self._vision_client = vision.ImageAnnotatorClient(credentials=creds)
         self._parsed_dcs_menu.setdefault("menu", {})
@@ -173,11 +183,33 @@ class DCSMenuParser:
                 print(f"Found: {w.window_text()}")
                 w.set_focus()
 
-    def _save_scanned_dcs_menu(self):
-        pass
+
 
     def discovery_scan_dcs_menu_json(self):
         self.iterate_and_parse_dcs_menu()
+        self._save_parsed_menu()
+
+    def _save_parsed_menu(self):
+        parsed_menus_dcs_file = os.path.join(os.path.dirname(__file__), "test_config", "parsed_menus_dcs.json")
+        try:
+            parsed_menus_dcs = json.load(open(parsed_menus_dcs_file, 'a+'))
+        except JSONDecodeError:
+            parsed_menus_dcs = {}
+
+        retries = 20
+        while retries > 0:
+            if self._terrain != DEFAULT_TERRAIN:
+                break
+
+            time.sleep(0.5)
+            retries-=1
+
+        if self._terrain == DEFAULT_TERRAIN:
+            raise TerrainNotDefinedError()
+
+        parsed_menus_dcs.setdefault(self._terrain, {})
+        parsed_menus_dcs[self._terrain].update(self._parsed_dcs_menu)
+        json.dump(parsed_menus_dcs, open(parsed_menus_dcs_file, 'w'), indent=4)
 
     def iterate_and_parse_dcs_menu(self):
         dcs_screenshot = self._get_dcs_menu_screenshot()
