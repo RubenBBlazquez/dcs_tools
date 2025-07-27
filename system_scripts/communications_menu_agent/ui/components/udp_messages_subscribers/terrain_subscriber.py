@@ -24,7 +24,7 @@ class TerrainUdpMessagesSubscriber(UdpMessagesSubscriber):
     def process_udp_message(self, message: str):
         udp_data = get_parsed_udp_json(message)
 
-        if not udp_data and TERRAIN_UDP_KEY not in udp_data:
+        if not udp_data or TERRAIN_UDP_KEY not in udp_data:
             return
 
         self.dcs_menu_parser_component._terrain = udp_data[TERRAIN_UDP_KEY]

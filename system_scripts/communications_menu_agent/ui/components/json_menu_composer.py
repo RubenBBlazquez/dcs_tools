@@ -21,9 +21,19 @@ from ui.config.settings_management import Settings
 # the terrain, so, until we have it, is Unknown
 DEFAULT_TERRAIN = "UNKNOWN"
 
+
 class TerrainNotDefinedError(Exception):
     def __init__(self):
         self.msg = "Terrain Not Found, Check if you set the files correctly inside DCS Game Folder"
+
+
+class MenuNotFoundInAreaSelected(Exception):
+    def __init__(self):
+        self.msg = (
+            "In menu discovering screenshots, we are not finding the menu text,"
+            " revise the area selected in your screen"
+        )
+
 
 @attr.s(auto_attribs=True)
 class DCSMenuParser:
@@ -103,7 +113,10 @@ class DCSMenuParser:
         if response.error.message:
             raise Exception(response.error.message)
 
-        text_obtained = response.text_annotations[0].description
+        try:
+            text_obtained = response.text_annotations[0].description
+        except IndexError:
+            raise MenuNotFoundInAreaSelected()
 
         menu_items_with_hotkeys = []
         menu_options = re.findall(r'(F[\w.,-]+\s.*?)(?=\nF[\w.,-]+\s|\Z)', text_obtained, re.DOTALL)
@@ -150,7 +163,7 @@ class DCSMenuParser:
             .split('. ')
         )
         menu_title_items = [
-            menu_title.replace(' ','').lower()
+            menu_title.replace(' ', '').lower()
             for menu_title in menu_title_items
         ]
 
@@ -184,11 +197,13 @@ class DCSMenuParser:
                 print(f"Found: {w.window_text()}")
                 w.set_focus()
 
-
-
     def discovery_scan_dcs_menu_json(self):
-        self.iterate_and_parse_dcs_menu()
-        self._save_parsed_menu()
+        try:
+            self.iterate_and_parse_dcs_menu()
+        except MenuNotFoundInAreaSelected as e:
+            print(e)
+        else:
+            self._save_parsed_menu()
 
     def _save_parsed_menu(self):
         parsed_menus_dcs_file = os.path.join(os.path.dirname(__file__), "test_config", "parsed_menus_dcs.json")
@@ -203,7 +218,7 @@ class DCSMenuParser:
                 break
 
             time.sleep(0.5)
-            retries-=1
+            retries -= 1
 
         if self._terrain == DEFAULT_TERRAIN:
             raise TerrainNotDefinedError()

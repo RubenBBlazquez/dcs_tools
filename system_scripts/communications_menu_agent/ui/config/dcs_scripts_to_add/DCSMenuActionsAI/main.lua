@@ -43,16 +43,16 @@ ai_menu_actions = {
           os.remove(filepath)
       end
 
-      local message = string.format("'landing_gear_state': %.2f , 'terrain': %s", gear_value, terrain)
+      local message = string.format("'landing_gear_state': %.2f , 'terrain': '%s'", gear_value, terrain)
       local json_format_result = "{" .. message .. "}"
       log.write('DCSMENUACTIONSAI.EXPORT.LUA', log.ERROR, json_format_result)
 
       local must_send_message = false
-      local realTime = Export.getRealTime()
+      local realTime =  os.clock()
 
       if json_format_result ~= last_message_send then
           must_send_message = true
-      elseif (realTime - last_real_time) >= 3.0 then
+      elseif (realTime - last_real_time) >= 10.0 then
           must_send_message = true
       end
 
