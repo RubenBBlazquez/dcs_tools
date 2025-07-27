@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HeliosProfile>
+  <Version>3</Version>
+  <Monitors>
+    <Monitor>
+      <Location>-3450,1232</Location>
+      <Size>768,1024</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_90</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>-3440,-208</Location>
+      <Size>3440,1440</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>-2088,1952</Location>
+      <Size>768,1024</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_90</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>-2079,1232</Location>
+      <Size>720,720</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>-774,1232</Location>
+      <Size>768,1024</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_90</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>0,0</Location>
+      <Size>1920,1080</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>1920,0</Location>
+      <Size>600,1024</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_90</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>2520,298</Location>
+      <Size>720,720</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children>
+        <Control TypeIdentifier="Helios.FA18C.ADI" Name="ADI" SnapTarget="True" Locked="False">
+          <Location>-10,-10</Location>
+          <Size>740,740</Size>
+          <Hidden>False</Hidden>
+          <Children />
+        </Control>
+      </Children>
+    </Monitor>
+    <Monitor>
+      <Location>3240,522</Location>
+      <Size>480,480</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children>
+        <Control TypeIdentifier="Helios.FA18C.Instruments" Name="RADAR Altimeter" SnapTarget="True" Locked="False">
+          <Location>-15,-15</Location>
+          <Size>510,510</Size>
+          <Hidden>False</Hidden>
+          <Children />
+        </Control>
+      </Children>
+    </Monitor>
+  </Monitors>
+  <Interfaces>
+    <Interface TypeIdentifier="Helios.Base.ProfileInterface" Name="Profile" />
+    <Interface TypeIdentifier="Helios.Base.Keyboard" Name="Keyboard">
+      <KeyDelay>30</KeyDelay>
+    </Interface>
+    <Interface TypeIdentifier="Helios.FA18C" Name="DCS F/A-18C" />
+    <Interface TypeIdentifier="Patching.DCS.MonitorSetup" Name="DCS Monitor Setup" />
+    <Interface TypeIdentifier="Helios.Base.HeliosInformation" Name="Helios Information" />
+    <Interface TypeIdentifier="Helios.Base.DirectXController" Name="WINWING MFD1-L">
+      <Controller>
+        <Name>WINWING MFD1-L</Name>
+        <GUID>9a4576c0-c07e-11ee-8007-444553540000</GUID>
+        <Functions>
+          <Function>
+            <Type>Button</Type>
+            <Number>0</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>1</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>2</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>3</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>4</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>5</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>6</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>7</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>8</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>9</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>10</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>11</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>12</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>13</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>14</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>15</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>16</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>17</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>18</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>19</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>20</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>21</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>22</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>23</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>24</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>25</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>26</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>27</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>28</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>29</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>30</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>31</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>32</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>33</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>34</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>35</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>36</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>37</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>38</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>39</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>40</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>41</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>42</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>43</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>44</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>45</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>46</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>47</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>48</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>49</Number>
+          </Function>
+          <Function>
+            <Type>Slider</Type>
+            <Number>0</Number>
+          </Function>
+        </Functions>
+      </Controller>
+    </Interface>
+    <Interface TypeIdentifier="Helios.Base.DirectXController" Name="Throttle - HOTAS Warthog">
+      <Controller>
+        <Name>Throttle - HOTAS Warthog</Name>
+        <GUID>64b71e20-5d2c-11ed-8003-444553540000</GUID>
+        <Functions>
+          <Function>
+            <Type>Button</Type>
+            <Number>0</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>1</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>2</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>3</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>4</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>5</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>6</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>7</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>8</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>9</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>10</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>11</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>12</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>13</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>14</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>15</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>16</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>17</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>18</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>19</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>20</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>21</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>22</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>23</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>24</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>25</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>26</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>27</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>28</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>29</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>30</Number>
+          </Function>
+          <Function>
+            <Type>Button</Type>
+            <Number>31</Number>
+          </Function>
+          <Function>
+            <Type>POV</Type>
+            <Number>0</Number>
+          </Function>
+          <Function>
+            <Type>X Axis</Type>
+            <Number>0</Number>
+          </Function>
+          <Function>
+            <Type>Y Axis</Type>
+            <Number>0</Number>
+          </Function>
+          <Function>
+            <Type>Slider</Type>
+            <Number>0</Number>
+          </Function>
+          <Function>
+            <Type>Z Axis</Type>
+            <Number>0</Number>
+          </Function>
+          <Function>
+            <Type>Z Rotation</Type>
+            <Number>0</Number>
+          </Function>
+        </Functions>
+      </Controller>
+    </Interface>
+    <Interface TypeIdentifier="Patching.DCS.AdditionalViewports" Name="DCS Additional Viewports" />
+  </Interfaces>
+  <Bindings>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Slip Ball.changed" />
+      <Action Target="Visual;Monitor 8.ADI;Helios.FA18C.ADI;ADI" Name="set.Slip Ball Offset" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Rate of Turn.changed" />
+      <Action Target="Visual;Monitor 8.ADI;Helios.FA18C.ADI;ADI" Name="set.Turn Indicator Offset" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Warning Flag.changed" />
+      <Action Target="Visual;Monitor 8.ADI;Helios.FA18C.ADI;ADI" Name="set.Off Flag" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Bank Steering Bar.changed" />
+      <Action Target="Visual;Monitor 8.ADI;Helios.FA18C.ADI;ADI" Name="set.Bank steering bar offset" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Pitch.changed" />
+      <Action Target="Visual;Monitor 8.ADI;Helios.FA18C.ADI;ADI" Name="set.Pitch" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Pitch Adjustment.changed" />
+      <Action Target="Visual;Monitor 8.ADI;Helios.FA18C.ADI;ADI" Name="set.Pitch adjustment offset" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Bank.changed" />
+      <Action Target="Visual;Monitor 8.ADI;Helios.FA18C.ADI;ADI" Name="set.Bank" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Radar Altimeter ID2163A.RADAR Altitude.changed" />
+      <Action Target="Visual;Monitor 9.RADAR Altimeter;Helios.FA18C.Instruments;RADAR Altimeter" Name="set.RADAR altitude" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Radar Altimeter ID2163A.Green Lamp.changed" />
+      <Action Target="Visual;Monitor 9.RADAR Altimeter;Helios.FA18C.Instruments;RADAR Altimeter" Name="set.RADAR Altimeter Green" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Radar Altimeter ID2163A.Red Lamp.changed" />
+      <Action Target="Visual;Monitor 9.RADAR Altimeter;Helios.FA18C.Instruments;RADAR Altimeter" Name="set.RADAR Altimeter Red" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Radar Altimeter ID2163A.Minimum Height Indicator.changed" />
+      <Action Target="Visual;Monitor 9.RADAR Altimeter;Helios.FA18C.Instruments;RADAR Altimeter" Name="set.RADAR Altimeter Minimum" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Radar Altimeter ID2163A.Off Flag.changed" />
+      <Action Target="Visual;Monitor 9.RADAR Altimeter;Helios.FA18C.Instruments;RADAR Altimeter" Name="set.RADAR Altimeter Off" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Radar Altimeter ID2163A.Push to Test Button.pushed" />
+      <Action Target="Visual;Monitor 9.RADAR Altimeter;Helios.FA18C.Instruments;RADAR Altimeter" Name="set.RADAR Altimeter Red" />
+      <StaticValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Radar Altimeter ID2163A.Push to Test Button.pushed" />
+      <Action Target="Visual;Monitor 9.RADAR Altimeter;Helios.FA18C.Instruments;RADAR Altimeter" Name="set.RADAR Altimeter Green" />
+      <StaticValue />
+    </Binding>
+  </Bindings>
+</HeliosProfile>

@@ -1,5 +1,6 @@
 *.env
 *.venv
+*.idea
 *cloud_vision_service_account.json
 *settings.json
 *parsed_menus_dcs.json
