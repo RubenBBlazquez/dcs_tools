@@ -45,7 +45,7 @@ class DCSMenuParser:
     _parsed_dcs_menu: dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def __attrs_post_init__(self):
-        key_path = os.path.join(os.path.dirname(__file__), "..", "test_config", "cloud_vision_service_account.json")
+        key_path = os.path.join(os.path.dirname(__file__), "..", "config", "cloud_vision_service_account.json")
         creds = service_account.Credentials.from_service_account_file(key_path)
         self._vision_client = vision.ImageAnnotatorClient(credentials=creds)
         self._parsed_dcs_menu.setdefault("menu", {})
@@ -60,6 +60,7 @@ class DCSMenuParser:
 
         :return: PNG representation of the captured screenshot as bytes
         :rtype: bytes
+
         """
         coords = self._settings.last_capture_coordinates
         screen_rectangle = {
